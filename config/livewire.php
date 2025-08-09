@@ -38,10 +38,6 @@ return [
     |
     */
 
-<<<<<<< HEAD
-    //'layout' => 'components.layouts.app',
-=======
->>>>>>> origin/main
     'layout' => 'layouts.app',
 
     /*
