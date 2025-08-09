@@ -12,7 +12,7 @@ class ShowTweets extends Component
     public function render()
     {
         // $tweets = Tweet::get();
-        $tweets = Tweet::with('user')->get();
+         $tweets = Tweet::with('user')->get();
         return view('livewire.show-tweets', compact('tweets'));
     }
 }
