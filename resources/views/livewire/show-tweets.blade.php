@@ -4,7 +4,12 @@
   <p>{{ $message }}</p>
 
   <textarea name="message" id="message" cols="30" rows="10">{{ $message }}</textarea>
-  <input type="text" name="message" id="message" wire:model="message" />
+
+
+  <form method="POST" wire:submit.prevent="createTweet">
+    <input type="text" name="message" id="message" wire:model="message" />
+    <button type="submit">Criar tweet</button>
+  </form>
 
   <hr>
 

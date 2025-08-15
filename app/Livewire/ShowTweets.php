@@ -15,4 +15,16 @@ class ShowTweets extends Component
          $tweets = Tweet::with('user')->get();
         return view('livewire.show-tweets', compact('tweets'));
     }
+
+    public function createTweet()
+    {
+        Tweet::create([
+            'content' => $this->message,
+            'user_id' => 1,
+        ]);
+
+        $this->message = '';
+
+        session()->flash('success', 'Tweet created successfully!');
+    }
 }
