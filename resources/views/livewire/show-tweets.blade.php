@@ -1,13 +1,25 @@
 <div>
    Show Tweets
-    <p>{{ $message }}</p>
 
-    <textarea name="message" id="message" cols="30" rows="10" wire:model="message">Teste área de teste</textarea>
-    <input type="text" name="message" id="message" wire:model="message">
+  <p>{{ $message }}</p>
 
-    <hr>
+  <textarea name="message" id="message" cols="30" rows="10">{{ $message }}</textarea>
 
-    @foreach($tweets as $tweet)
-        {{ $tweet->user->name }} - {{ $tweet->content }} <br>
-    @endforeach
+
+  <form method="POST" wire:submit.prevent="createTweet">
+    <input type="text" name="message" id="message" wire:model="message" />
+    <button type="submit">Criar tweet</button>
+  </form>
+
+  <hr>
+
+  @foreach ($tweets as $tweet)
+    <div class="tweet">
+      <h3>{{ $tweet->user->name }}</h3>
+      <p>{{ $tweet->content }}</p>
+      <small>
+        Posted at: {{ $tweet->created_at ? $tweet->created_at->diffForHumans() : 'Data indisponível' }}
+      </small>
+    </div>
+  @endforeach
 </div>

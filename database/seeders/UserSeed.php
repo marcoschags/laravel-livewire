@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use App\Models\User; // Corrija para o namespace correto do seu modelo User
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeed extends Seeder
@@ -13,6 +13,6 @@ class UserSeed extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        User::factory()->count(10)->create();
     }
 }
