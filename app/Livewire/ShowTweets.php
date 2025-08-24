@@ -4,15 +4,20 @@ namespace App\Livewire;
 
 use App\Models\Tweet;
 use Livewire\Component;
+use Livewire\WithPagination; // <--- IMPORTANTE
 
 class ShowTweets extends Component
 {
+    use WithPagination; // <--- NECESSÁRIO
+
     public $message = 'Apenas um teste -> ';
 
     public function render()
     {
-        // $tweets = Tweet::get();
-         $tweets = Tweet::with('user')->get();
+        $tweets = Tweet::with('user')
+                       ->latest()
+                       ->paginate(10);
+
         return view('livewire.show-tweets', compact('tweets'));
     }
 
