@@ -8,7 +8,6 @@ use Livewire\WithPagination;
 
 class ShowTweets extends Component
 {
-
     use WithPagination;
 
     public $content = 'Apenas um teste -> ';
@@ -19,24 +18,58 @@ class ShowTweets extends Component
 
     public function render()
     {
-        // $tweets = Tweet::get();
-         $tweets = Tweet::with('user')
+        $tweets = Tweet::with(['user', 'likes'])
                     ->latest()
                     ->paginate(10);
+
         return view('livewire.show-tweets', compact('tweets'));
     }
 
-    public function create()
+    public function createTweet()
     {
         $this->validate();
 
-        Auth()->user()->tweets()->create([
-                'content' => $this->content,
-            ]);
+        auth()->user()->tweets()->create([
+            'content' => $this->content,
+        ]);
 
-        // Tweet::create([
-        //     'content' => $this->content,
-        //     'user_id' => Auth()->user()->id,
-        // ]);
+        $this->content = '';
+        session()->flash('message', 'Tweet criado com sucesso.');
+    }
+
+    public function like($tweetId)
+    {
+        $userId = auth()->id();
+        $tweet = Tweet::find($tweetId);
+
+        if (! $tweet) {
+            return;
+        }
+
+        // evita likes duplicados
+        if ($tweet->likes()->where('user_id', $userId)->exists()) {
+            return;
+        }
+
+        $tweet->likes()->create([
+            'user_id' => $userId,
+        ]);
+    }
+
+    public function unlike($tweetId)
+    {
+        $userId = auth()->id();
+        $tweet = Tweet::find($tweetId);
+
+        if (! $tweet) {
+            return;
+        }
+
+        // encontra o like existente
+        $like = $tweet->likes()->where('user_id', $userId)->first();
+
+        if ($like) {
+            $like->delete();
+        }
     }
 }
