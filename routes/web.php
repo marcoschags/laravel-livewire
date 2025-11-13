@@ -1,9 +1,12 @@
 <?php
 
 use App\Livewire\ShowTweets;
+use App\Livewire\User\UploadPhoto;
 use Illuminate\Support\Facades\Route;
 
-Route::get('tweets', ShowTweets::class);
+
+Route::get('/upload-photo', UploadPhoto::class)->name('upload-photo');
+Route::get('/tweets', ShowTweets::class)->name('tweets')->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');
