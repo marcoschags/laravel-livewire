@@ -3,7 +3,7 @@
 
   <p>{{ $content }}</p>
 
-  <form method="POST" wire:submit.prevent="create">
+  <form method="POST" wire:submit.prevent="createTweet">
     <input type="text" name="content" id="content" wire:model="content" />
     @error('content')
         {{ $message }}

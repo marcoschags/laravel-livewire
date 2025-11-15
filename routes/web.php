@@ -5,7 +5,7 @@ use App\Livewire\User\UploadPhoto;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/upload-photo', UploadPhoto::class)->name('upload-photo');
+Route::get('/upload-photo', UploadPhoto::class)->name('upload-photo')->middleware('auth');
 Route::get('/tweets', ShowTweets::class)->name('tweets')->middleware('auth');
 
 Route::get('/', function () {
